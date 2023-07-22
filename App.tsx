@@ -1,25 +1,22 @@
-import React, {createContext, useContext, useState} from 'react';
-import {Button, Text, View} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import React from 'react';
+import {Login} from './src/screens/Login';
+import {screenNames} from './src/contants/Constants';
+import {VerifyOtp} from './src/screens/VerifyOtp';
+import {MainScreen} from './src/screens/MainScreen';
 
-export const demoContext = createContext();
+const Stack = createNativeStackNavigator();
+
 const App = () => {
-  const [theme, setTheme] = useState(false);
   return (
-    <demoContext.Provider value={{theme, setTheme}}>
-      <ShowTheme />
-    </demoContext.Provider>
-  );
-};
-
-const ShowTheme = () => {
-  const {theme, setTheme} = useContext(demoContext);
-  console.log(theme);
-  return (
-    <View>
-      <Text>hiii</Text>
-      <Button onPress={() => setTheme(val => !val)} title="clcik me" />
-      {theme ? <Text>jlmjl,mhnkjhbkhnbijkn</Text> : <Text>{'kjhjhj'}</Text>}
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name={screenNames.loginScreen} component={Login} />
+        <Stack.Screen name={screenNames.verifyOtp} component={VerifyOtp} />
+        <Stack.Screen name={screenNames.mainPage} component={MainScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
